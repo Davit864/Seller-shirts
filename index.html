@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computer Shop - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* រចនាប័ទ្មបន្ថែមសម្រាប់រូបភាព និង Card */
+        .category_img { cursor: pointer; transition: 0.3s; border-radius: 10px; }
+        .category_img:hover { transform: scale(1.05); }
+        .p_card { cursor: pointer; object-fit: contain; padding: 10px; }
+        
+        /* រចនាប័ទ្មសម្រាប់ផ្ទាំងកន្ត្រកទំនិញ (Cart Panel) */
+        .cart-panel {
+            position: fixed; top: 0; right: -400px;
+            width: 350px; height: 100%;
+            background: white; box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+            transition: 0.3s; z-index: 2000; padding: 20px;
+        }
+        .cart-panel.active { right: 0; }
+        .cart-item { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; padding: 10px 0; }
+        .footer_text { color: white; }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="index.html">
+                    <img src="assets/images/logos/images.png" width="50px" alt="Logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" href="index.html">ទំព័រដើម</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">ប្រភេទទំនិញ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">អំពីពួកយើង</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">ទំនាក់ទំនង</a></li>
+                    </ul>
+                    <form class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="ស្វែងរក...">
+                        <button type="button" class="btn btn-success ms-3 text-nowrap" onclick="openCart()">
+                            🛒 Cart: <span id="cart-count">0</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="bannerSlide" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img  src="assets/images/banners/Bucks-SR.jpg" 
+            </div>
+            <div class="carousel-item">
+                <img src="https://via.placeholder.com/1600x500/28a745/ffffff?text=Gaming+Laptops" class="d-block w-100">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#bannerSlide" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#bannerSlide" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+
+    <div class="container">
+        <h3 class="mt-5 text-center">ប្រភេទទំនិញ</h3>
+        <div class="row mt-4 gx-3 text-center">
+            <div class="col-4 col-md-2 mb-3"><img height="200px" src="assets/images/category/download.jpg" class="w-100 category_img"></div>
+            <div class="col-4 col-md-2 mb-3"><img height="200px" src="assets/images/category/download (1).jpg" class="w-100 category_img"></div>
+            <div class="col-4 col-md-2 mb-3"><img height="200px" src="assets/images/category/download (2).jpg" class="w-100 category_img"></div>
+            <div class="col-4 col-md-2 mb-3"><img height="200px" src="assets/images/category/download (3).jpg" class="w-100 category_img"></div>
+            <div class="col-4 col-md-2 mb-3"><img height="200px" src="assets/images/category/images.jpg" class="w-100 category_img"></div>
+            <div class="col-4 col-md-2 mb-3"><img height="200px" src="assets/images/category/images (1).jpg" class="w-100 category_img"></div>
+        </div>
+
+        <h3 class="mt-5">ទំនិញដែលលក់ដាច់ជាងគេ</h3>
+        <div class="row mt-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img height="200px" src="assets/images/category/download5.jpg" class="card-img-top p_card" 
+                         onclick="showDetail('Dell XPS 13', '1999', 'CPU Core i7, RAM 16GB, SSD 512GB')" title="ចុចដើម្បីមើលលម្អិត">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">$15</h5>
+                        <button class="btn btn-sm btn-primary add-to-cart" data-name="Dell XPS 13" data-price="1999">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img height="200px" src="assets/images/category/download (6).jpg" class="card-img-top p_card" 
+                         onclick="showDetail('MacBook M2', '1200', 'Apple M2 chip, 8GB Unified Memory')" title="ចុចដើម្បីមើលលម្អិត">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">$20</h5>
+                        <button class="btn btn-sm btn-primary add-to-cart" data-name="MacBook M2" data-price="1200">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img height="200px" src="assets/images/category/download7.jpg" class="card-img-top p_card" 
+                         onclick="showDetail('MacBook M2', '1200', 'Apple M2 chip, 8GB Unified Memory')" title="ចុចដើម្បីមើលលម្អិត">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">$16</h5>
+                        <button class="btn btn-sm btn-primary add-to-cart" data-name="MacBook M2" data-price="1200">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img height="200px" src="assets/images/category/images (8).jpg" class="card-img-top p_card" 
+                         onclick="showDetail('MacBook M2', '1200', 'Apple M2 chip, 8GB Unified Memory')" title="ចុចដើម្បីមើលលម្អិត">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">$14</h5>
+                        <button class="btn btn-sm btn-primary add-to-cart" data-name="MacBook M2" data-price="1200">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img height="200px" src="assets/images/category/images (9).jpg" class="card-img-top p_card" 
+                         onclick="showDetail('MacBook M2', '1200', 'Apple M2 chip, 8GB Unified Memory')" title="ចុចដើម្បីមើលលម្អិត">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">$15.6</h5>
+                        <button class="btn btn-sm btn-primary add-to-cart" data-name="MacBook M2" data-price="1200">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-2 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img height="200px" src="assets/images/category/images10.jpg" class="card-img-top p_card" 
+                         onclick="showDetail('MacBook M2', '1200', 'Apple M2 chip, 8GB Unified Memory')" title="ចុចដើម្បីមើលលម្អិត">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">$17</h5>
+                        <button class="btn btn-sm btn-primary add-to-cart" data-name="MacBook M2" data-price="1200">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div id="cartPanel" class="cart-panel">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5>កន្ត្រកទំនិញរបស់អ្នក</h5>
+            <button class="btn-close" onclick="closeCart()"></button>
+        </div>
+        <div id="cartItemsList" style="height: 75%; overflow-y: auto;">
+            </div>
+        <div class="border-top pt-3 mt-2">
+            <h6>សរុប: $<span id="cartTotalValue">0</span></h6>
+            <button class="btn btn-success w-100 mt-2">បន្តទៅកាន់ការទូទាត់</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="m_name">Product Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="https://via.placeholder.com/300" class="img-fluid rounded mb-3">
+                    <h4 class="text-primary">$<span id="m_price">0</span></h4>
+                    <p id="m_desc" class="text-muted"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-primary mt-5 py-5 footer_text">
+        <div class="container text-center">
+            <p>© 2026 Computer Shop Online. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let cart = [];
+
+        // មុខងារបើក/បិទ Cart
+        function openCart() { document.getElementById("cartPanel").classList.add("active"); }
+        function closeCart() { document.getElementById("cartPanel").classList.remove("active"); }
+
+        // មុខងារបង្ហាញ Detail
+        function showDetail(name, price, desc) {
+            document.getElementById("m_name").innerText = name;
+            document.getElementById("m_price").innerText = price;
+            document.getElementById("m_desc").innerText = desc;
+            new bootstrap.Modal(document.getElementById('detailModal')).show();
+        }
+
+        // មុខងារ Update Cart
+        function updateCartUI() {
+            const list = document.getElementById("cartItemsList");
+            const totalDisplay = document.getElementById("cartTotalValue");
+            const countDisplay = document.getElementById("cart-count");
+            
+            let html = "";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                html += `
+                <div class="cart-item">
+                    <div>
+                        <span class="d-block fw-bold">${item.name}</span>
+                        <small>$${item.price}</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${index})">ដកចេញ</button>
+                </div>`;
+                total += parseFloat(item.price);
+            });
+
+            list.innerHTML = cart.length === 0 ? "<p class='text-center mt-5'>មិនទាន់មានទំនិញ...</p>" : html;
+            totalDisplay.innerText = total.toFixed(2);
+            countDisplay.innerText = cart.length;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        // Add to Cart Event
+        document.querySelectorAll(".add-to-cart").forEach(btn => {
+            btn.addEventListener("click", function(e) {
+                e.preventDefault();
+                const name = this.dataset.name;
+                const price = this.dataset.price;
+                cart.push({ name, price });
+                updateCartUI();
+                openCart(); // បង្ហាញកន្ត្រកភ្លាមៗពេលចុចបន្ថែម
+            });
+        });
+    </script>
+</body>
+</html>
